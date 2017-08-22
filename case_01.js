@@ -1018,3 +1018,81 @@ function foo(x) {
 	}
 	return acc;
 }
+
+//--------------------------------------------------
+
+async function main() {
+	var ret = await step1();
+	try {
+		ret = await step2(ret);
+	} catch (err) {
+		ret = await step2Failed(err);
+	}
+	ret = await Promise.all([step3a(ret), step3b(ret), step3c(ret)]);
+	await step4(ret);
+}
+main()
+.then(function ok() {
+
+}, function error(reason) {
+
+});
+
+
+var obj = {a: 1, b: 2};
+Object.reserve(obj, function(changes) {
+	for(var change of changes) {
+		console.log(change);
+	}
+}, ["add", "update", "delete"]);
+//reconfigure -> Object.defineProperty()
+//preventExtensions -> Object.preventExtensions() [Object.seal(), Object.freeze()]
+//setPrototype -> __proto__ || Object.setPrototypeOf()
+obj.c = 3;
+obj.a = 24;
+delete obj.b;
+
+
+function observer(changes) {
+	for(var change of changes) {
+		if(change.type == "recalc") {
+			change.object.c = change.object.oldValue + change.object.a + change.object.b;
+			break;
+		}
+		if(change.type == "setPrototype") {
+			Object.unobserve(change.object, observer);
+			break;
+		}
+	}
+}
+function changeObj(a, b) {
+	var notifier = Object.getNotifier(obj);
+	obj.a = a * 2;
+	obj.b = b * 3;
+	//notifier.notify({type: "recalc", name: "c", oldValue: obj.c});
+	notifier.performChange("recalc", function() {
+		return {
+			name: "c",
+			oldValue: this.c,
+		};
+	})
+}
+var obj = {a: 1, b: 2, c: 3};
+Object.observe(obj, observer, ["recalc"]);
+//Object.deliverChangeRecords(observer);
+changeObj(3, 11);
+
+a **= 3;
+var o1 = {b: 2, c: 3, d: 4};
+var {b, ...o2} = o1;
+console.log(b, o2.c, o2.d);
+if(~vals.indexOf(42)) {
+	console.log("found");
+}
+if(vals.includes(42)) {
+	console.log("found");
+}
+
+var v1 = SIMD.float32x4(3, 4, 5, 6);
+var v2 = SIMG.float32x4(5, 6, 7, 8);
+SIMD.float32x4.mul(v1, v2); //sub, div, abs, neg, sqrt;
