@@ -1258,3 +1258,4 @@ var reducer = function(tally, vote) {
 var result = votes.reduce(reducer, initValue);
 
 //--------------------------------------------------
+
