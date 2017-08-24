@@ -1102,3 +1102,104 @@ function getInitials(name) {
 }
 
 //--------------------------------------------------
+
+const output = (str, regex, target) => {
+	target.innerHTML = str.replace(regex, str => '<span>${str}</span>');
+}
+var str = 'String to search for';
+var regex = /is/gi;
+output(str, regex, document.querySelector('pre'));
+
+//--------------------------------------------------
+
+function fill(array, value) {
+  return Array.apply(null, array).map(value.constructor.prototype.valueOf, value)
+}
+
+const newstr = str.replace(/[\W_]/g, '').toLowerCase()
+
+function endsWith(str, suffix) {
+  return str.indexOf(suffix, str.length - suffix.length) !== -1
+}
+
+function flatten(...args) {
+  return args.reduce(function flattenReducer(flat, toFlatten) {
+    return flat.concat(Array.isArray(toFlatten) ? flatten(...toFlatten) : toFlatten)
+  }, [])
+}
+
+function getQueryStringParam(url, name) {
+  const regexReadyName = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+  const regex = new RegExp(`[\\?&]${regexReadyName}=([^&#]*)`)
+  const results = regex.exec(url)
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '))
+}
+
+function hex2rgb(hex, opacity) {
+  let h = hex.replace('#', '')
+  h = h.match(new RegExp(`(.{${h.length / 3}})`, 'g'))
+
+  for (let i = 0; i < h.length; i++) {
+    h[i] = parseInt(h[i].length === 1 ? h[i] + h[i] : h[i], 16)
+  }
+  if (typeof opacity !== 'undefined') {
+    h.push(opacity)
+  }
+
+  return `rgba(${h.join(',')})`
+}
+
+function initArray(len, value) {
+  return new Array(len).fill(value)
+}
+
+function isArray(someObject) {
+  const objectToString = Object.prototype.toString.call(someObject)
+  return objectToString === '[object Array]'
+}
+
+n === parseFloat(n) && !(n % 2)
+
+function isFunction(functionToCheck) {
+  const getType = {}
+  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]'
+}
+
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n)
+}
+
+list.reduce(__getMax, Number.NEGATIVE_INFINITY)
+
+function mod(dividend, divisor) {
+  return ((dividend % divisor) + divisor) % divisor
+}
+
+function objectValuesToString(obj) {
+  if (!obj) {
+    return ''
+  } else if (typeof obj !== 'object' || obj instanceof Date) {
+    return ''
+  }
+
+  return Object.keys(obj).map(key => obj[key])
+    .filter(val => val || val === 0 || val === '0' || val === false)
+    .join(', ')
+}
+
+Math.floor(Math.random() * (max - min + 1)) + min
+
+function removeDuplicates(arr) {
+  return arr.filter((item, index, inputArray) => {
+    return inputArray.indexOf(item) === index
+  })
+}
+
+str.replace(new RegExp(find, 'g'), replace)
+
+const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line max-len
+
+
+//--------------------------------------------------
+
+
