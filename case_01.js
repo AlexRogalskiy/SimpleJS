@@ -1202,4 +1202,59 @@ const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\
 
 //--------------------------------------------------
 
+const lessons = [
+	{
+		title: '',
+		views: 1,
+		tags: []
+	}
+]
 
+var filtered = lessons
+				.filter(x => x.tags.indexOf(searchTerm) > -1)
+				.filter(x => x.views > minViews)
+				.sort((a, b) => b.views - a.views)
+				.map(x +> '<li>${x.title}</li>')
+				.join('\n')
+
+//--------------------------------------------------
+
+data.reduce(function(acc, value) {
+	acc.push(value * 2);
+	return acc;
+}, []) 
+
+data.map(function(item) {
+	return item * 2;
+});
+
+data.reduce(function(acc, value) {
+	if(value % 2 === 0) {
+		acc.push(value);
+	}
+	return acc;
+}, []);
+
+
+console.time('bigData');
+var eventFiltered = data.filter(function(item) {
+	return (item % 2 === 0);
+}).map(function(value) {
+	return value * 2;
+});
+console.timeEnd('bigData');
+
+//--------------------------------------------------
+
+var initValue = {};
+var reducer = function(tally, vote) {
+	if(!tally[vote]) {
+		tally[vote] = 1;
+	} else {
+		tally[vote] = tally[vote] + 1;
+	}
+	return tally;
+}
+var result = votes.reduce(reducer, initValue);
+
+//--------------------------------------------------
