@@ -1096,3 +1096,9 @@ if(vals.includes(42)) {
 var v1 = SIMD.float32x4(3, 4, 5, 6);
 var v2 = SIMG.float32x4(5, 6, 7, 8);
 SIMD.float32x4.mul(v1, v2); //sub, div, abs, neg, sqrt;
+
+function getInitials(name) {
+	return name.split(' ').map(word => `${word.charAt(0).toUpperCase()}.`).join('');
+}
+
+//--------------------------------------------------
