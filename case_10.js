@@ -39,23 +39,3 @@ const error = (e) => console.log(e);
 
 
 //--------------------------------------------------
-
-function addAsync(x, y , cb) {
-	setTimeout(function() {
-		cb(x + y);
-	}, 1000);
-}
-
-function makeThunk(fn) {
-	var args = Array.prototype.slice.call(arguments, 1);
-	return function(cb) {
-		args.push(cb);
-		fn.apply(null, args);
-	};
-}
-
-var thunk = makeThunk(addAsync, 10, 15);
-
-thunk(function(sum)) {
-	console.log(sum);
-}
